@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('mercancias', function (Blueprint $table) {
             $table->id();
             $table->string('description');
-            $table->string('weigh');
+            $table->string('weight');
             $table->string('volume');
             $table->string('price');
             $table->string('type');
