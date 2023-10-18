@@ -14,8 +14,6 @@ class GoodsByLetterController extends Controller
      */
     public function index()
     {
-        var_dump('goodsbyleter');
-
         $goodsbyletter = GoodsByLetter::all();
 
         return response()->json( [
@@ -69,7 +67,6 @@ class GoodsByLetterController extends Controller
      */
     public function destroy($id)
     {
-        // Obtener la instancia de la mercancía por su ID y eliminarla de la base de datos
         $letter = GoodsByLetter::findOrFail($id);
         $letter->delete();
 
