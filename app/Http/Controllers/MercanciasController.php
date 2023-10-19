@@ -29,22 +29,14 @@ class MercanciasController extends Controller
      */
     public function store(Request $request)
     {
-        // Validar los datos del formulario
-        $request->validate([
-            'description' => 'required|string|max:255',
-            'weight' => 'required|string|max:255',
-            'volume' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-        ]);
 
         // Crear una nueva instancia del modelo Mercancia con los datos del formulario
         $mercancia = new Mercancia([
-            'description' => $request->input('description'),
-            'weight' => $request->input('weight'),
-            'volume' => $request->input('volume'),
-            'price' => $request->input('price'),
-            'type' => $request->input('type'),
+            'description' => $request->input('description') ?? ' ',
+            'weight' => $request->input('weight') ?? ' ',
+            'volume' => $request->input('volume') ?? ' ',
+            'price' => $request->input('price') ?? ' ',
+            'type' => $request->input('type') ?? ' ',
         ]);
 
         // Guardar la nueva mercancia en la base de datos
@@ -65,11 +57,16 @@ class MercanciasController extends Controller
     public function show($id)
     {
          // Obtener la instancia de la mercancía por su ID
-        $mercancia = Mercancia::findOrFail($id);
+        $mercancia = Mercancia::find($id);
+
+        if ($mercancia)
+            return response()->json( [
+                'data' => $mercancia
+            ], 200 );
 
         return response()->json( [
-            'data' => $mercancia
-        ], 200 );
+            'message' => 'not found'
+        ], 404 );
     }
 
     /**
@@ -81,31 +78,28 @@ class MercanciasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validar los datos del formulario
-        $request->validate([
-            'description' => 'required|string|max:255',
-            'weight' => 'required|string|max:255',
-            'volume' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-        ]);
-
         // Obtener la instancia de la mercancía por su ID
-        $mercancia = Mercancia::findOrFail($id);
+        $mercancia = Mercancia::find($id);
 
-        // Actualizar los datos de la mercancía con los datos del formulario
-        $mercancia->update([
-            'description' => $request->input('description'),
-            'weight' => $request->input('weight'),
-            'volume' => $request->input('volume'),
-            'price' => $request->input('price'),
-            'type' => $request->input('type'),
-        ]);
+        if($mercancia) {
+            // Actualizar los datos de la mercancía con los datos del formulario
+            $mercancia->update([
+                'description' => $request->input('description') ?? $mercancia->description,
+                'weight' => $request->input('weight') ?? $mercancia->weight,
+                'volume' => $request->input('volume') ?? $mercancia->volume,
+                'price' => $request->input('price') ?? $mercancia->price,
+                'type' => $request->input('type') ?? $mercancia->type,
+            ]);
+
+            return response()->json( [
+                'message' => 'Updated',
+                'data' => $mercancia
+            ], 200 );
+        }
 
         return response()->json( [
-            'message' => 'Updated', 
-            'data' => $mercancia
-        ], 200 );
+            'message' => 'not found'
+        ], 404 );
     }
 
     /**
@@ -117,11 +111,17 @@ class MercanciasController extends Controller
     public function destroy($id)
     {
         // Obtener la instancia de la mercancía por su ID y eliminarla de la base de datos
-        $mercancia = Mercancia::findOrFail($id);
-        $mercancia->delete();
+        $mercancia = Mercancia::find($id);
 
+        if ($mercancia) {
+            $mercancia->delete();
+
+            return response()->json( [
+                'message' => 'Deleted',
+            ], 200 );
+        }
         return response()->json( [
-            'message' => 'Deleted', 
-        ], 200 );
+            'message' => 'not found'
+        ], 404 );
     }
 }

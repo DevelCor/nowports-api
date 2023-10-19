@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MercanciasController;
 use App\Models\GoodsByLetter;
+use App\Http\Controllers\InstructionCardsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,12 +32,12 @@ Route::prefix( '/mercancias' )->group( function () {
 } );
 
 //goodsbyletter
-Route::prefix( '/goodsbyletter' )->group( function () {
+Route::prefix( '/goods-by-letter' )->group( function () {
     Route::post( '/create', [GoodsByLetterController::class, 'store'] );
     Route::get( '/', [GoodsByLetterController::class, 'index'] );
-    Route::get( '/{letter_id}', [GoodsByLetterController::class, 'show'] );
-    Route::put( '/{letter_id}', [GoodsByLetterController::class, 'update'] );
-    Route::delete( '/{letter_id}', [GoodsByLetterController::class, 'destroy'] );
+    Route::get( '/{id}', [GoodsByLetterController::class, 'show'] );
+    Route::put( '/{id}', [GoodsByLetterController::class, 'update'] );
+    Route::delete( '/{id}', [GoodsByLetterController::class, 'destroy'] );
 } );
 
 //Auth Group
@@ -44,3 +45,13 @@ Route::prefix( '/user' )->group( function () {
     Route::post('/login', [UsersController::class,'login']);
     Route::post('/register', [UsersController::class,'create']);
 });
+
+
+//instruction cards
+Route::prefix( '/instruction-cards' )->group( function () {
+    Route::post( '/create', [InstructionCardsController::class, 'store'] );
+    Route::get( '/', [InstructionCardsController::class, 'index'] );
+    Route::get( '/{id}', [InstructionCardsController::class, 'show'] );
+    Route::put( '/{id}', [InstructionCardsController::class, 'update'] );
+    Route::delete( '/{id}', [InstructionCardsController::class, 'destroy'] );
+} );
