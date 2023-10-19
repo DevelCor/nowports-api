@@ -52,7 +52,7 @@ class UsersController extends Controller
         $user->location = $request['location'] ?? 'No location';
         $user->phone = $request['phone'] ?? 'No phone';
         $user->email = $request['email'];
-        $user->password = $request['password'];
+        $user->password = bcrypt($request['password']);
 
         if ($user->save()) {
             return response()->json([
