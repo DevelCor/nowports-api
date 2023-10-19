@@ -30,6 +30,7 @@ Route::prefix( '/mercancias' )->group( function () {
     Route::delete( '/{mercancia_id}', [MercanciasController::class, 'destroy'] );
 } );
 
+//goodsbyletter
 Route::prefix( '/goodsbyletter' )->group( function () {
     Route::post( '/create', [GoodsByLetterController::class, 'store'] );
     Route::get( '/', [GoodsByLetterController::class, 'index'] );
@@ -37,8 +38,9 @@ Route::prefix( '/goodsbyletter' )->group( function () {
     Route::put( '/{letter_id}', [GoodsByLetterController::class, 'update'] );
     Route::delete( '/{letter_id}', [GoodsByLetterController::class, 'destroy'] );
 } );
+
 //Auth Group
 Route::prefix( '/user' )->group( function () {
-    Route::get('/login', [UsersController::class,'login']);
+    Route::post('/login', [UsersController::class,'login']);
     Route::post('/register', [UsersController::class,'create']);
 });
