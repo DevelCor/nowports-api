@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('instruction_cards', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_sender_user'); // relacionado con la tabla usuarios
-            $table->unsignedBigInteger('id_receiver_user'); // relacionado con la tabla usuarios
+            $table->unsignedBigInteger('id_sender_user')->nullable(); // relacionado con la tabla usuarios
+            $table->unsignedBigInteger('id_receiver_user')->nullable(); // relacionado con la tabla usuarios
             $table->string('emission_date');
             $table->string('reception_date');
             $table->string('state');
