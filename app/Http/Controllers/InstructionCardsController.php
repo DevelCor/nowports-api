@@ -37,7 +37,7 @@ class InstructionCardsController extends Controller
                 $instructionCards[$key]->description = $product->description;
                 $instructionCards[$key]->weight = $product->weight;
                 $instructionCards[$key]->volume = $product->volume;
-                $instructionCards[$key]->product_type = $product->product_type;
+                $instructionCards[$key]->product_type = $product->type;
                 $instructionCards[$key]->price = $product->price;
             }
         }
