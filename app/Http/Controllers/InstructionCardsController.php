@@ -25,6 +25,7 @@ class InstructionCardsController extends Controller
             $instructionCards[$key]->receiver_location = $user_receiver->location;
             $instructionCards[$key]->receiver_email = $user_receiver->email;
             $instructionCards[$key]->type_location = $user_receiver->type;
+            $instructionCards[$key]->phone = $user_receiver->phone;
 
             $user_sender = User::find($item->id_sender_user);
             $instructionCards[$key]->sender_location = $user_sender->type;
@@ -37,6 +38,7 @@ class InstructionCardsController extends Controller
                 $instructionCards[$key]->weight = $product->weight;
                 $instructionCards[$key]->volume = $product->volume;
                 $instructionCards[$key]->product_type = $product->product_type;
+                $instructionCards[$key]->price = $product->price;
             }
         }
 
