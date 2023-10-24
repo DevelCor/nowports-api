@@ -33,7 +33,7 @@ class InstructionCardsController extends Controller
             $instructionCards[$key]->sender_type = $user_sender->type;
 
             foreach ($goodsByLetter as $subkey => $subitem) {
-                $product = Mercancia::find($subitem->id);
+                $product = Mercancia::find($subitem->id_mercancia);
                 $instructionCards[$key]->description = $product->description;
                 $instructionCards[$key]->weight = $product->weight;
                 $instructionCards[$key]->volume = $product->volume;
