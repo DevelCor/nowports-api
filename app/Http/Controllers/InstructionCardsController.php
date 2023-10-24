@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GoodsByLetter;
 use App\Models\InstructionCards;
+use App\Models\Mercancia;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,10 +18,16 @@ class InstructionCardsController extends Controller
     public function index()
     {
 
-        $intructionCards = InstructionCards::all();
+        $instructionCards = InstructionCards::all();
+        foreach ($instructionCards as $key => $item) {
+            $goodsByLetter = GoodsByLetter::where('id_instruction_card', '=', $item->id)->get();
+            foreach ($goodsByLetter as $subkey => $subitem) {
+                $instructionCards[$key][$subkey] = Mercancia::find($subitem->id);
+            }
+        }
 
         return response()->json( [
-            'data' => $intructionCards
+            'data' => $instructionCards
         ], 200 );
     }
 
