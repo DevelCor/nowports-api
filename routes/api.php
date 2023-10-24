@@ -44,6 +44,7 @@ Route::prefix( '/goods-by-letter' )->group( function () {
 Route::prefix( '/user' )->group( function () {
     Route::post('/login', [UsersController::class,'login']);
     Route::post('/register', [UsersController::class,'create']);
+    Route::get('/find', [UsersController::class,'index']);
 });
 
 
