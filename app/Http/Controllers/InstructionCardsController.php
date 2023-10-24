@@ -28,7 +28,7 @@ class InstructionCardsController extends Controller
             $instructionCards[$key]->phone = $user_receiver->phone;
 
             $user_sender = User::find($item->id_sender_user);
-            $instructionCards[$key]->sender_location = $user_sender->type;
+            $instructionCards[$key]->sender_location = $user_sender->location;
             $instructionCards[$key]->sender_email = $user_sender->email;
             $instructionCards[$key]->sender_type = $user_sender->type;
 
