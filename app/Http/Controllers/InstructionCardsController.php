@@ -21,8 +21,15 @@ class InstructionCardsController extends Controller
         $instructionCards = InstructionCards::all();
         foreach ($instructionCards as $key => $item) {
             $goodsByLetter = GoodsByLetter::where('id_instruction_card', '=', $item->id)->get();
+            $user_receiver = User::find($item->id_receiver_user);
+            $instructionCards[$key]->location = $user_receiver->location;
+            $instructionCards[$key]->type_location = $user_receiver->type;
             foreach ($goodsByLetter as $subkey => $subitem) {
-                $instructionCards[$key][$subkey] = Mercancia::find($subitem->id);
+                $product = Mercancia::find($subitem->id);
+                $instructionCards[$key]->description = $product->description;
+                $instructionCards[$key]->weight = $product->weight;
+                $instructionCards[$key]->volume = $product->volume;
+                $instructionCards[$key]->product_type = $product->product_type;
             }
         }
 
