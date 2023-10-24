@@ -14,10 +14,19 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+
+    public function index()
+    {
+        $Users = User::all();
+
+        return response()->json( [
+            'data' => $Users
+        ], 200 );
+    }
+
     public function login(Request $request)
     {
         $credentials = request(['email', 'password']);
-
         if (!Auth::attempt($credentials))
             return response()->json([
                 'message' => 'Unauthorized'
